@@ -1,0 +1,30 @@
+<% layout('layouts/boilerplate')%>
+    <h1 style="color:white;">All Groups</h1>
+
+    <% for(let group of groups){%>
+        <div class="card mb-3" >
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-fluid" src="<%=group.image.url%>" alt="">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= group.title%>
+                        </h5>
+                        <p class="card-text">
+                            <%= group.description %>
+                        </p>
+                        <p class="list-group-item text-muted">
+                            Created by <%= group.author.username %>
+                        </p>
+
+                        <a class="btn btn-primary" href="/groups/<%=group.id%>">View <%= group.title %> </a>
+                     
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <% } %>

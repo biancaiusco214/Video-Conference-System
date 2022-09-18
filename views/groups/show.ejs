@@ -1,0 +1,66 @@
+<% layout('layouts/boilerplate')%>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card mb-3">
+                <img src="<%=group.image.url%>" class="card-img-top" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= group.title %>
+                    </h5>
+                    <p class="card-text">
+                        <%= group.description %>
+                    </p>
+                </div>
+                <div class="card-body">
+
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-muted">
+                        Created by <%= group.author.username %>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <a class="btn btn-primary lg mb-3" href="/groups/<%=group.id%>/call"><i
+                            class="fa fa-video-camera"></i></a>
+                    <button class="btn btn-success ms-3 mb-3" id="seeMembers" onclick="hideElements()">Members <span class="fa fa-users"></span></button>
+                    <div id="membersShow" style="display:none">
+                        <% for(let user of group.members){ %>
+                            <div class="card" mb-3>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                Username: <strong> <%= user.username %></strong>
+                                            </h5>
+                                            <p class="card-text">
+                                                Email: <%= user.email %>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <% } %>
+                    </div>
+                    <% if(currentUser && group.author.equals(currentUser._id)){ %>
+                        <div class="card-body">
+                            <a class="card-link btn btn-info" href="/groups/<%= group._id %>/edit">Edit</a>
+                            <a class="card-link btn btn-primary" href="/groups/<%= group._id %>/members">Add user <span
+                                    class="fa fa-user-plus"></span></a>
+
+                            <form class="d-inline" action="/groups/<%= group._id %>?_method=DELETE" method="POST">
+                                <button class="btn btn-danger ms-3">Delete</button>
+                            </form>
+                        </div>
+
+                        <% } %>
+                            <div class="card-footer">
+                                <small class="text-muted">Last call 3 mins ago
+                                    <a href="/groups">All Groups</a>
+                                </small>
+                            </div>
+                </div>
+                
+            </div>
+        </div>
